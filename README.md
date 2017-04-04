@@ -1,3 +1,3 @@
 # GamesJS
 
-Just a few client side games I've made.
+Just a few client-side games I've made.
