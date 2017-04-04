@@ -1,0 +1,119 @@
+﻿body
+{
+    background-color: #eeeeee;
+    color: #555555;
+}
+
+#banner{
+    background-color: #555555;
+    color:#f6f6f6;
+}
+
+#option-dots{
+    font-size: 2em;
+    cursor:pointer;
+    position:relative;
+    top: 0.5em;
+    /*width:0.75em;*/
+}
+
+#jumbotron{
+    position:relative;
+    top: 2em;
+}
+
+
+.grid-cell:not(.masked){
+    /*border: 1px #555555 solid;*/
+    background-color:#52CF78;
+    
+}
+
+._1{
+    color:#f6f6f6;
+}
+._2{
+    color:#04CC40;
+}
+._3{
+    color:#53AFC9;
+}
+._4{
+    color:#B15900;
+}
+._5{
+    color:#FF8305;
+}
+._6{
+    color:#FF2705;
+}
+._7{
+    color:#B11800;
+}
+
+.content {
+    position:absolute;
+    height:80%; /* = 100% - 2*10% padding */
+    width:80%; /* = 100% - 2*5% padding */
+    text-align:center;
+    /*padding: 10% 5%;*/
+}
+
+.table{
+    display:table;
+    height:100%;
+    width:100%;
+}
+.table-cell{
+    font-size: 1.5em;
+    font-weight:900;
+    display:table-cell;
+    vertical-align:middle;
+    height:100%;
+    width:100%;
+}
+
+.bomb{
+    position:relative;
+    top: 0.1em;
+    width:1.4em;
+}
+
+
+.masked{
+    background-color: #666666;
+    cursor: pointer;
+}
+
+.masked:hover{
+    /*background-color: #55DA7D;*/
+    background-color:#03566E;
+}
+
+.mine:not(.masked){
+    background-color: #FF2705;
+}
+
+.splash:not(.masked){
+    background-color: #333333;
+}
+
+.flagged{
+    background-color: #FF7B66 !important;
+    color: #333333 !important;
+}
+
+.caution{
+    background-color: #FF8305 !important;
+    color: #333333 !important;
+}
+
+.oneFlagLeft{
+    color: #FF2705;
+}
+
+/* Display Masked Mines For Testing */
+
+/*.mine.masked{
+    background-color: green;
+}*/

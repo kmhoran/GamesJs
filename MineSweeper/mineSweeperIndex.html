@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <!--  ## Bootstrap ##  -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link href="Styles/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!--  ## /Bootstrap ##  -->
+
+    <title>MineSweeper</title>
+
+    <link href="Styles/styles1.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div id="banner" class="row">
+            
+            <div class="col-md-1 col-sm-1 col-xs-1 "></div>
+            <div class="col-md-10 col-xs-10 col-xs-10 text-center"><h1>MineSweeper</h1></div>
+            <div class="col-md-1 col-sm-1 col-xs-1"><span id="option-dots" class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-2"></div>
+            <div class="col-md-4  col-sm-8 col-xs-12 text-center"><h3><span style="font-size:0.9em" class="glyphicon glyphicon-hourglass"></span><span>  </span><span id="game-timer">00:00</span></h3></div>
+            <div class="col-md-4 col-sm-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-2"></div>
+            <div id="mines-remaining-full" class="col-md-4  col-sm-8 col-xs-12 text-center"><h3><span style="font-size:0.9em" class="glyphicon glyphicon-flag"></span><span>  </span><span id="mines-remaining">X</span> flags remaining.</h3></div>
+            <div class="col-md-4 col-sm-2"></div>
+        </div>
+        <div id="jumbotron" class="row">
+            <div class="col-md-4 col-sm-2"></div>
+            <div id="gamboard" class="col-md-4  col-sm-8 col-xs-12"></div>
+            <div class="col-md-4 col-sm-2"></div>
+        </div>
+    </div>
+
+    <!--  ## Modal ##  -->
+    <div id="options-modal" class="modal fade">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Settings</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="form-grid-size">Square-Grid Dimension</label>
+                        <input type="number" id="form-grid-size" class="form-control" min="2" max="13" value="9" />
+
+                        <label for="form-mine-count">Number of Mines</label>
+                        <input type="number" id="form-mine-count" class="form-control" min="1" value="10" />
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="modal-reset-btn" type="button" class="btn btn-secondary">Reset Default</button>
+                    <button id="modal-update-btn" type="button" class="btn btn-primary">Restart Game with these Settings</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- End-Game Modal -->
+
+    <div id="end-game-modal" class="modal fade">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>-->
+                    <h1 id="end-title"class="modal-title">Title</h1>
+                </div>
+                <div class="modal-body">
+                    
+                        <h3>Time: <span id="win-time">00:00</span></h3>
+                    <br/>
+                    <form>
+                        <label for="end-form-grid-size">Square-Grid Dimension</label>
+                        <input type="number" id="end-form-grid-size" class="form-control" min="2" max="13" value="9" />
+
+                        <label for="end-form-mine-count">Number of Mines</label>
+                        <input type="number" id="end-form-mine-count" class="form-control" min="1" value="10" />
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="end-reset-btn" type="button" class="btn btn-secondary">Reset Default</button>
+                    <button id="end-update-btn" type="button" class="btn btn-primary">Restart Game</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script id="div-template" type="text/template">
+        <div class="grid-cell">
+            <div class="content">
+                <div class="table">
+                    <div class="table-cell">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="bomb-image" type="text/template">
+        <img class="bomb" src="Images/bomb.svg" />
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--<script type="text/javascript" src="Script/bootstrap.js"></script>-->
+
+    <script type="text/javascript" src="Scripts/jUM.js"></script>
+
+    <script type="text/javascript" src="Scripts/Main.js"></script>
+    <script type="text/javascript" src="Scripts/Main_Common.js"></script>
+
+    <script type="text/javascript">
+        Main.page.startUp = function () {
+
+            Main.control = {
+                settingsDots: "#option-dots",
+                
+                modReset: {
+                    mod: "#options-modal",
+                    gridSize: "#form-grid-size",
+                    mineCount: "#form-mine-count",
+                    resetBtn: "#modal-reset-btn",
+                    submitBtn: "#modal-update-btn",
+                },
+                
+
+                modWin: {
+                    mod: "#end-game-modal",
+                    title: "#end-title",
+                    titleText: "You Win!",
+                    winTime:"#win-time",
+                    gridSize: "#end-form-grid-size",
+                    mineCount: "#end-form-mine-count",
+                    resetBtn: "#end-reset-btn",
+                    submitBtn: "#end-update-btn",
+                },
+                
+
+                gameTimer: "#game-timer",
+                flagsRemaining: "#mines-remaining",
+                flagsRemainingFull: "#mines-remaining-full",
+                gameBoard: "#gamboard",
+                cellTemplate: "#div-template",
+                gridCell: "div.grid-cell",
+                bombTemplate: "#bomb-image"
+
+
+            }
+
+            Main.gridSize = 9;
+            Main.mineCount = 10;
+
+            Main.page.runGame();
+
+
+
+            // ## Listeners ## //
+
+            $(Main.control.settingsDots).on("click", Main.page.handlers.onSettingsClick);
+
+            $(Main.control.modReset.submitBtn).on("click", Main.page.handlers.onRestartWithModal);
+
+            $(Main.control.modReset.resetBtn).on("click", Main.page.handlers.onModalReset);
+
+            $(Main.control.modWin.submitBtn).on("click", Main.page.handlers.onRestartWithModal);
+
+            $(Main.control.modWin.resetBtn).on("click", Main.page.handlers.onModalReset);
+
+
+            };
+
+            Main.jQ = jQueryUtilitiesModule;
+
+
+
+
+
+
+    </script>
+</body>
+</html>
+
