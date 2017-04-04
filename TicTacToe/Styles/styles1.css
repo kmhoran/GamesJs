@@ -1,0 +1,75 @@
+﻿/*Tic Tac Toe Styles*/
+
+body{ 
+  background-color: #555555/*#5555e9*/;
+  color: #f6f6f6;
+  text-align: center;
+  transition: all 0.5s;
+}
+
+.O-turn {
+  background-color: #5555e9;
+}
+
+.X-turn {
+  background-color: #e95555;
+}
+
+.body-victory {
+  background-color: #55e955;
+}
+
+.cell-victory{
+    background-color: #7DF17D;
+}
+
+/*div[class^="col"]{
+  border: green solid 1px;
+}*/
+
+
+
+#top-margin{
+  height: 1em;
+}
+
+#game-box{
+  position: relative;
+  width:70%;
+}
+
+.div-normal{
+    background-color: rgba(0,0,0,0.1);
+}
+
+.div-cell{
+  position: relative;
+  float: left;
+  /*border: 1px black solid;*/
+  padding-bottom: 32%;
+  margin: 1px;
+  width:32%;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+
+.div-cell.open {
+  cursor:pointer;
+}
+
+.div-cell.open:hover{
+  background-color:#f6f6f6 ;
+}
+
+.div-cell .content{
+  position: absolute;
+  height: 90%;
+  width: 90%;
+  padding:10% 5%;
+}
+
+    .div-cell .content {
+       width:100%;
+    }
+
+

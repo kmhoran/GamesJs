@@ -1,0 +1,194 @@
+﻿<DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link type="text/css" rel="stylesheet" href="./Styles/styles1.css" />
+        <title>Tic Tac Toe</title>
+    </head>
+    <body>
+        <div class="container-fluid">
+
+            <div id="top-margin" class="row"></div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>#TicTacToe</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-1"></div>
+
+                <div class="col-md-6 col-sm-10">
+                    <!-- <h3>The Game!</h3> -->
+
+                    <div id="game-box" class="center-block"></div>
+
+                </div>
+
+                <div class="col-md-3 col-sm-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 message-board">
+                    <h3 id="notification">Welcome!</h3>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- page included Templates -->
+        <script id="game-board-template" type="text/template">
+            <table class="game-board"></table>
+        </script>
+
+        <script id="table-row-template" type="text/template">
+            <tr class="table-row"></tr>
+        </script>
+
+        <script id="table-cell-template" type="text/template">
+            <td class="table-cell"><h1>Q</h1></td>
+        </script>
+
+        <script id="div-template" type="text/template">
+            <div class="div-cell open"><div class="content"></div></div>
+        </script>
+        <script id="img-template" type="text/template">
+            <img />
+        </script>
+
+        <!-- page includes jQuery 3.1.1 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="./Scripts/output_module.js"></script>
+        <script type="text/javascript" src="./Scripts/twoSwitch_module.js"></script>
+
+        <!-- ticTacToe includes for page -->
+        <script type="text/javascript" src="./Scripts/ticTacToe.js"></script>
+        <script type="text/javascript" src="./Scripts/ticTacToe common.js"></script>
+
+        <!--  ## TicTac Toe startup  ##-->
+        <script type="text/javascript">
+        ticTacToe.page.startUp = function () {
+            //Initialize values
+
+            ticTacToe.controllers = {
+                body: "body",
+                gameBox: "#game-box",
+                divCell: "#div-template",
+                marker: "#img-template",
+                messageBoard: ".message-board h3",
+                openCell: ".div-cell.open"
+            };
+            
+
+            ticTacToe.gridsize = 4;
+
+            // Score cards specific to 3x3 game board
+            ticTacToe.ScoreCardX = [[0, 0, 0, ], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
+            ticTacToe.ScoreCardO = [[0, 0, 0, ], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
+
+            ticTacToe.turnsRemaining = ticTacToe.gridsize * ticTacToe.gridsize;
+
+            // Display-text update and animation
+            ticTacToe.services.output = output;
+            if (!ticTacToe.services.output) {
+                console.debug("Output module failed to connect");
+            }
+
+            // Consolidated if/else module
+            ticTacToe.services.XorO = twoSwitch;
+            if (ticTacToe.services.XorO != null) {
+                ticTacToe.services.XorO.setObjects([
+               [
+                   "X-turn",
+                   {
+                       turnNotification: "Player X's Turn",
+                       imgSource: "./Images/X-white.svg",
+                       scoreCard: ticTacToe.ScoreCardX,
+                       nextUp: "O-turn",
+                       victoryNotification: "Player X wins!"
+                   }
+               ], [
+                   "O-turn",
+                   {
+                       turnNotification: "Player O's Turn",
+                       imgSource: "./Images/O-white.svg",
+                       scoreCard: ticTacToe.ScoreCardO,
+                       nextUp: "X-turn",
+                       victoryNotification: "Player O wins!"
+                   }
+               ]
+                ]);
+            } else { console.debug("Switch Module failed to connect.");}
+           
+            
+            ticTacToe.grid.render();
+
+            setTimeout(function (){
+                ticTacToe.page.nextTurn("X-turn");
+            }, 500);
+
+
+
+            // Listeners
+            $(ticTacToe.controllers.openCell).on("click", ticTacToe.page.onOpenCellClick);
+
+
+        };
+
+        // score card sprcific to 3x3 tic tac toe
+        ticTacToe.page.addToScoreCard = function (index, scoreCard) {
+            switch (index) {
+                case 1:
+                    scoreCard[0][0] = index;
+                    scoreCard[1][0] = index;
+                    scoreCard[2][0] = index;
+                    break;
+                case 2:
+                    scoreCard[0][1] = index;
+                    scoreCard[3][0] = index;
+                    break;
+                case 3:
+                    scoreCard[0][2] = index;
+                    scoreCard[4][0] = index;
+                    scoreCard[5][0] = index;
+                    break;
+                case 4:
+                    scoreCard[1][1] = index;
+                    scoreCard[6][0] = index;
+                    break;
+                case 5:
+                    scoreCard[2][1] = index;
+                    scoreCard[3][1] = index;
+                    scoreCard[5][1] = index;
+                    scoreCard[6][1] = index;
+                    break;
+                case 6:
+                    scoreCard[4][1] = index;
+                    scoreCard[6][2] = index;
+                    break;
+                case 7:
+                    scoreCard[1][2] = index;
+                    scoreCard[5][2] = index;
+                    scoreCard[7][0] = index;
+                    break;
+                case 8:
+                    scoreCard[3][2] = index;
+                    scoreCard[7][1] = index;
+                    break;
+                case 9:
+                    scoreCard[2][2] = index;
+                    scoreCard[4][2] = index;
+                    scoreCard[7][2] = index;
+                    break;
+            }
+        };
+
+        </script>
+    </body>
+
+
+
+</html>
